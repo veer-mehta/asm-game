@@ -454,7 +454,7 @@ code segment para 'CODE'
 		draw_plr_hz:
 
 			mov AH, 0ch
-			mov AL, 01h                             ;color blue
+			mov AL, 03h                             ;color blue
 			mov BH, 00h
 			int 10h
 
