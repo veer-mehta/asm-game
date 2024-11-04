@@ -19,4 +19,3 @@ This project is a classic-style game built entirely in 8086 assembly language us
    ```
 
 Enjoy the nostalgia and challenge of assembly-based gaming!
-
