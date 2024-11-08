@@ -47,9 +47,9 @@ code segment para 'CODE'
 		pop AX
 
 		mov AL, 13h
-		int 10h
+		int 10h										;sets to video mode
 
-		mov AH, 00h                               ;sets black bg color
+		mov AH, 0c0h								;sets black bg color
 		int 10h
 		
 		call clrscr
@@ -86,7 +86,6 @@ code segment para 'CODE'
 			jmp time_loop
 
 		ret
-
 
 	main endp
 
@@ -178,7 +177,7 @@ code segment para 'CODE'
 		int 10h
 
 		mov AH, 09h
-		lea DX, game_fin
+		lea DX, game_fin								;shows that game finished
 		int 21h
 
 		lq:
@@ -456,7 +455,7 @@ code segment para 'CODE'
 			mov AH, 0ch
 			mov AL, 03h                             ;color blue
 			mov BH, 00h
-			int 10h
+			int 10h									;draws a pixel
 
 			inc CX
 			mov AX, CX 
@@ -492,7 +491,7 @@ code segment para 'CODE'
 			mov AH, 0ch
 			mov AL, 04h						;color red
 			mov BH, 00h
-			int 10h
+			int 10h							;draws a pixel
 
 			inc CX
 			mov AX, CX
