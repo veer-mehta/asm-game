@@ -16,7 +16,7 @@ data segment para 'DATA'
 	plr_velo dw 08h
 
 	blt_sz dw 03h								;bullet static properties
-	blt_spd dw 02h
+	blt_spd dw 07h
 	max_bullets dw 10h
 
 	blts_x dw 11h dup(0)						;bullet variable properties
@@ -29,6 +29,7 @@ data segment para 'DATA'
 	enm_health db 0h
 
 	game_fin db 'Game Finished $'
+	startscreen db 'Press any Key to Start $'
 
 data ends
 
@@ -47,16 +48,30 @@ code segment para 'CODE'
 		pop AX
 
 		mov AL, 13h
-		int 10h										;sets to video mode
+		int 10h
 
-		mov AH, 0c0h								;sets black bg color
+		mov AH, 00h                               ;sets black bg color
 		int 10h
 		
 		call clrscr
 		call mk_enm
 
-		mov AH, 2ch                               ;get time
-		int 21h                                   ;CH = hr, CL = min, DH = sec, DL = msec
+		starting_screen:
+
+		mov AH, 02h
+		mov BH, 00h
+		mov DH, 24h
+		mov DL, 02h
+		int 10h											;sets position to display text
+
+		mov AH, 09h
+		lea DX, startscreen							
+		int 21h											;displays text
+
+		lss:
+		mov AH, 01h                                       ;checks if there is any input
+		int 16h
+		jz lss
 
 
 		time_loop:
@@ -87,6 +102,7 @@ code segment para 'CODE'
 
 		ret
 
+
 	main endp
 
 
@@ -98,7 +114,7 @@ code segment para 'CODE'
 			int 21h                                   ;CH = hr, CL = min, DH = sec, DL = msec
 			mov AX, 0h
 			mov AL, DL
-			mov BL, 5h
+			mov BL, 3h
 			mul BL
 			mov enm_x, AX
 			mov enm_y, 0h
@@ -130,12 +146,12 @@ code segment para 'CODE'
 
 		mv_enm_r:
 
-			add enm_x, 01h
+			add enm_x, 02h
 			jmp mv_vt
 
 		mv_enm_l:
 
-			sub enm_x, 01h
+			sub enm_x, 02h
 			jmp mv_vt
 		
 		mv_vt:
@@ -154,12 +170,12 @@ code segment para 'CODE'
 
 		mv_enm_d:	
 
-			add enm_y, 01h
+			add enm_y, 02h
 			jmp ret8
 
 		mv_enm_u:
 
-			sub enm_y, 01h
+			sub enm_y, 02h
 			jmp ret8
 	
 		ret8:
@@ -174,11 +190,11 @@ code segment para 'CODE'
 		mov BH, 00h
 		mov DH, 24h
 		mov DL, 06h
-		int 10h
+		int 10h											;sets position to display text
 
 		mov AH, 09h
-		lea DX, game_fin								;shows that game finished
-		int 21h
+		lea DX, game_fin							
+		int 21h											;displays text
 
 		lq:
 		mov AH, 01h                                       ;checks if there is any input
@@ -249,32 +265,31 @@ code segment para 'CODE'
 		mv_blt:
 			
 			cmp enm_health, 0h
-			je not_hit          ; If health is 0, skip the check
+			je not_hit
 
-			; Check x-axis collision
+			; check x-axis
 			mov AX, enm_x
 			cmp blts_x[BP], AX
-			jb not_hit          ; Bullet's X is left of enemy, no hit
+			jb not_hit
 
 			mov AX, enm_x
 			add AX, enm_sz
 			cmp blts_x[BP], AX
-			ja not_hit         ; Bullet's X is right of enemy + size, no hit
+			ja not_hit
 
-			; Check y-axis collision
+			; check y-axis
 			mov AX, enm_y
 			cmp blts_y[BP], AX
-			jb not_hit          ; Bullet's Y is above enemy, no hit
+			jb not_hit
 
 			mov AX, enm_y
 			add AX, enm_sz
 			cmp blts_y[BP], AX
-			ja not_hit         ; Bullet's Y is below enemy + size, no hit
+			ja not_hit
 
-			; If we passed all checks, there's a hit
-			call free_blt_mem   ; Free bullet memory if hit
-			dec enm_health      ; Decrease enemy health
-			jmp inc_loop2       ; Continue to the next iteration
+			call free_blt_mem
+			dec enm_health
+			jmp inc_loop2
 
 
 			not_hit:
@@ -455,7 +470,7 @@ code segment para 'CODE'
 			mov AH, 0ch
 			mov AL, 03h                             ;color blue
 			mov BH, 00h
-			int 10h									;draws a pixel
+			int 10h
 
 			inc CX
 			mov AX, CX 
@@ -491,7 +506,7 @@ code segment para 'CODE'
 			mov AH, 0ch
 			mov AL, 04h						;color red
 			mov BH, 00h
-			int 10h							;draws a pixel
+			int 10h
 
 			inc CX
 			mov AX, CX
