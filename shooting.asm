@@ -16,7 +16,7 @@ data segment para 'DATA'
 	plr_velo dw 08h
 
 	blt_sz dw 03h								;bullet static properties
-	blt_spd dw 07h
+	blt_spd dw 02h
 	max_bullets dw 10h
 
 	blts_x dw 11h dup(0)						;bullet variable properties
@@ -131,12 +131,12 @@ code segment para 'CODE'
 
 		mv_enm_r:
 
-			add enm_x, 02h
+			add enm_x, 01h
 			jmp mv_vt
 
 		mv_enm_l:
 
-			sub enm_x, 02h
+			sub enm_x, 01h
 			jmp mv_vt
 		
 		mv_vt:
@@ -155,12 +155,12 @@ code segment para 'CODE'
 
 		mv_enm_d:	
 
-			add enm_y, 02h
+			add enm_y, 01h
 			jmp ret8
 
 		mv_enm_u:
 
-			sub enm_y, 02h
+			sub enm_y, 01h
 			jmp ret8
 	
 		ret8:
