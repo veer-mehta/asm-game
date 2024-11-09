@@ -19,8 +19,7 @@ data segment para 'DATA'
 	blt_spd dw 07h
 	max_bullets dw 10h
 
-	blts_x dw 11h dup(0)						;bullet variable properties
-	
+	blts_x dw 11h dup(0)						;bullet variable properties	
 	blts_y dw 11h dup(0)
 	blts_dir db 11h dup(0)
 	enm_sz dw 0dh
@@ -211,10 +210,10 @@ code segment para 'CODE'
 
 		mov AH, 00h
 		mov AL, 02h
-		int 10h
+		int 10h											;change to text mode 
 
 		mov AH, 4ch
-		int 21h
+		int 21h											;exit
 
 	exit_game endp
 
