@@ -8,10 +8,11 @@ This project is a classic-style game built entirely in 8086 assembly language us
 - **DOSBox**: An x86 emulator that allows running DOS applications, essential for running MASM programs on modern systems.
 
 ## How to Run
-1. Open **DOSBox**.
-2. Navigate to the project folder using the `cd` command:
+1. Open **DOSBox**.\
+2. Mount the project folder as c drive
    ```bash
-   cd path/to/your/project
+   mount c: path/to/the/project
+   c:
    ```
 3. Run the game executable:
    ```bash
