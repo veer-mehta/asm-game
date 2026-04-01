@@ -15,7 +15,7 @@ This project is a classic-style game built entirely in 8086 assembly language us
 1. Open **DOSBox**.
 2. Mount the project folder as c drive
    ```bash
-   mount c: path/to/the/project
+   mount c: C:/path/to/the/project
    c:
    ```
 3. Run the game executable:
