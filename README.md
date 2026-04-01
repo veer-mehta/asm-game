@@ -1,6 +1,10 @@
 
 # 2D Shooting Game in Assembly
 
+## Demo
+![asm-game-demo](https://github.com/user-attachments/assets/64e10aa0-235f-494a-b1b1-c857865f820b)
+
+
 ## About
 This project is a classic-style game built entirely in 8086 assembly language using Microsoft Macro Assembler (MASM). It showcases low-level programming concepts and techniques unique to the x86 architecture, creating a retro gaming experience.
 
@@ -18,5 +22,3 @@ This project is a classic-style game built entirely in 8086 assembly language us
    ```bash
    shooting
    ```
-
-Enjoy the nostalgia and challenge of assembly-based gaming!
