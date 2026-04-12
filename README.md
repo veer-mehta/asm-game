@@ -22,3 +22,7 @@ This project is a classic-style game built entirely in 8086 assembly language us
    ```bash
    shooting
    ```
+
+---
+
+#### Inspired by [8086 Assembly - Pong](https://youtube.com/playlist?list=PLvpbDCl_H7mfgmEJPl1bTHlH5g-f0kWDM&si=-HdhzRFth74_t3Hz)
